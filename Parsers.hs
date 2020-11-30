@@ -26,6 +26,3 @@ integer = read <$> (plus <|> minus <|> number)
         number = many1 digit
 
 safeLookup key map = fromJust $ M.lookup key map
-
--- part1 = do
---  Right (firstPath, secondPath) <- parse inputFile "" <$> TIO.readFile "day3_input.txt"
