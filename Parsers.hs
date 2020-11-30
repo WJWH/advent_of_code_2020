@@ -1,4 +1,4 @@
-module Parsers (
+module Utils (
   module Control.Monad.Identity,
   module Text.Parsec,
   module Data.Maybe,
@@ -25,4 +25,5 @@ integer = read <$> (plus <|> minus <|> number)
         minus  = (:) <$> char '-' <*> number
         number = many1 digit
 
+-- For looking up keys you know are there.
 safeLookup key map = fromJust $ M.lookup key map
