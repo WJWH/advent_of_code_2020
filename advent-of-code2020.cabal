@@ -17,14 +17,13 @@ maintainer:          wjw.hillen@gmail.com
 build-type:          Simple
 extra-source-files:  CHANGELOG.md
 
-executable advent-of-code2020
-  main-is:             Main.hs
-  other-modules:       Utils
-  -- other-extensions:
-  build-depends:       base >=4.14 && <4.15,
-                       text,
-                       containers,
-                       mtl,
-                       parsec
-  -- hs-source-dirs:
-  default-language:    Haskell2010
+library
+  exposed-modules:
+      Utils
+  build-depends:
+      text
+    , containers
+    , mtl
+    , parsec
+    , base >=4.7 && <5
+  default-language: Haskell2010
