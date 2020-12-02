@@ -3,6 +3,7 @@ module Utils (
   module Text.Parsec,
   module Data.Maybe,
   Parser,
+  parseFile,
   integer,
   safeLookup
   ) where
@@ -16,6 +17,9 @@ import Text.Parsec
 
 -- type definitions
 type Parser a = ParsecT T.Text () Identity a
+
+parseFile :: Parser a -> FilePath -> IO (Either ParseError a)
+parseFile p fp = parse p fp <$> TIO.readFile fp
 
 -- Tiny utility function because Text.Parsec.Number is apparently not in the stdlib
 -- Little bit more sophisticated to also parse negative numbers

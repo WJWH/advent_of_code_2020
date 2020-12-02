@@ -1,5 +1,4 @@
 import Utils
-import qualified Data.Text.IO as TIO
 
 data Policy = Policy Char Int Int deriving (Eq,Show)
 
@@ -14,8 +13,8 @@ policyAndPassword = do
   password <- many letter
   return (Policy character min max, password)
 
-inputFile :: Parser [(Policy,String)]
-inputFile = do
+inputFileParser :: Parser [(Policy,String)]
+inputFileParser = do
   ps <- policyAndPassword `sepBy` endOfLine
   eof
   return ps
@@ -30,9 +29,9 @@ doesPolicyMatchPasswordPart2 ((Policy char fst snd), password) = fstChar /= sndC
         sndChar = password !! pred snd
 
 part1 = do
-  Right policiesAndPasswords <- parse inputFile "input" <$> TIO.readFile "day2_input.txt"
+  Right policiesAndPasswords <- parseFile inputFileParser "day2_input.txt"
   print . length $ filter doesPolicyMatchPasswordPart1 policiesAndPasswords
 
 part2 = do
-  Right policiesAndPasswords <- parse inputFile "input" <$> TIO.readFile "day2_input.txt"
+  Right policiesAndPasswords <- parseFile inputFileParser "day2_input.txt"
   print . length $ filter doesPolicyMatchPasswordPart2 policiesAndPasswords
