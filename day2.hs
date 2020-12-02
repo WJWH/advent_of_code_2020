@@ -13,12 +13,6 @@ policyAndPassword = do
   password <- many letter
   return (Policy character min max, password)
 
-inputFileParser :: Parser [(Policy,String)]
-inputFileParser = do
-  ps <- policyAndPassword `sepBy` endOfLine
-  eof
-  return ps
-
 doesPolicyMatchPasswordPart1 :: (Policy, String) -> Bool
 doesPolicyMatchPasswordPart1 ((Policy char min max), password) = numOccurences >= min && numOccurences <= max
   where numOccurences = length $ filter (== char) password
@@ -29,9 +23,9 @@ doesPolicyMatchPasswordPart2 ((Policy char fst snd), password) = fstChar /= sndC
         sndChar = password !! pred snd
 
 part1 = do
-  Right policiesAndPasswords <- parseFile inputFileParser "day2_input.txt"
+  Right policiesAndPasswords <- parseFileLines policyAndPassword "day2_input.txt"
   print . length $ filter doesPolicyMatchPasswordPart1 policiesAndPasswords
 
 part2 = do
-  Right policiesAndPasswords <- parseFile inputFileParser "day2_input.txt"
+  Right policiesAndPasswords <- parseFileLines policyAndPassword "day2_input.txt"
   print . length $ filter doesPolicyMatchPasswordPart2 policiesAndPasswords
