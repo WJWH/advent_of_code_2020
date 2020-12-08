@@ -76,5 +76,3 @@ part2 = do
   let jmpToNops = [ program V.// [(x,jmpToNop $ program ! x)] | x <- [0..((V.length program) - 1)], isJmp $ program ! x ]
   let allAlternativePrograms = jmpToNops ++ nopToJmps
   print . head . filter isJust $ map runUntilLooping allAlternativePrograms
-
--- $> part2
